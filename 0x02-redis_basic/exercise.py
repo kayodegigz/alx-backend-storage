@@ -72,19 +72,19 @@ class Cache:
 
     def get(self, key: str,
             fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
-        '''convert the data back to the desired format'''
+        '''method to convert raw data to the desired format'''
         value = self._redis.get(key)
         if fn:
             value = fn(value)
         return value
 
     def get_str(self, key: str) -> str:
-        '''parametrize Cache.get with correct conversion function'''
+        '''conversion function to convert value gotten to a utf8 string'''
         value = self._redis.get(key)
         return value.decode("utf-8")
 
     def get_int(self, key: str) -> int:
-        '''parametrize Cache.get with correct conversion function'''
+        '''conversion function to change the value gotten to an int'''
         value = self._redis.get(key)
         try:
             value = int(value.decode("utf-8"))
